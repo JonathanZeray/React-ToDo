@@ -1,20 +1,18 @@
 import { useState } from "react";
 import "./styles.css";
+import NewTodoForm from "./components/NewTodoForm";
+import TodoList from "./components/TodoList";
 
 export default function App() {
-  const [newItem, setNewItem] = useState("");
   const [todos, setTodos] = useState([]);
 
-  function handleSubmit(e) {
-    e.preventDefault();
-
+  function addToDo(title) {
     setTodos((currentTodos) => {
       return [
         ...currentTodos,
-        { id: crypto.randomUUID(), title: newItem, completed: false },
+        { id: crypto.randomUUID(), title, completed: false },
       ];
     });
-    setNewItem("");
   }
 
   function toggleTodo(id, completed) {
@@ -36,43 +34,9 @@ export default function App() {
 
   return (
     <>
-      <form onSubmit={handleSubmit}>
-        <div className="flex flex-col">
-          <label htmlFor="item">New item</label>
-          <input
-            type="text"
-            id="item"
-            value={newItem}
-            onChange={(e) => setNewItem(e.target.value)}
-            className="border border-gray-300 p-2 w-1/3"
-          />
-        </div>
-        <button className="border border-gray-300 p-2 rounded-md">Add</button>
-      </form>
+      <NewTodoForm addToDo={addToDo} />
       <h1>Todo list</h1>
-      <ul>
-        {todos.length === 0 && "Nothing to do.."}
-        {todos.map((todo) => {
-          return (
-            <li key={todo.id}>
-              <label>
-                <input
-                  type="checkbox"
-                  checked={todo.completed}
-                  onChange={(e) => toggleTodo(todo.id, e.target.checked)}
-                />
-                {todo.title}
-              </label>
-              <button
-                className="border border-gray-300 p-2 rounded-md"
-                onClick={() => deleteTodo(todo.id)}
-              >
-                delete
-              </button>
-            </li>
-          );
-        })}
-      </ul>
+      <TodoList todos={todos} toggleTodo={toggleTodo} deleteTodo={deleteTodo} />
     </>
   );
 }
