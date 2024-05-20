@@ -1,3 +1,5 @@
+import "./styles.css";
+
 export default function App() {
-  return "hi!";
+  return <h1 className="font-bold text-3xl">Hi</h1>;
 }
