@@ -3,8 +3,14 @@ import "./styles.css";
 import NewTodoForm from "./components/NewTodoForm";
 import TodoList from "./components/TodoList";
 
-export default function App() {
-  const [todos, setTodos] = useState(() => {
+interface Todo {
+  id: string;
+  title: string;
+  completed: boolean;
+}
+
+export default function App(): JSX.Element {
+  const [todos, setTodos] = useState<Todo[]>(() => {
     const localValue = localStorage.getItem("ITEMS");
     if (localValue === null) return [];
 
@@ -15,7 +21,7 @@ export default function App() {
     localStorage.setItem("ITEMS", JSON.stringify(todos));
   }, [todos]);
 
-  function addToDo(title) {
+  function addToDo(title: string) {
     setTodos((currentTodos) => {
       return [
         ...currentTodos,
@@ -24,7 +30,7 @@ export default function App() {
     });
   }
 
-  function toggleTodo(id, completed) {
+  function toggleTodo(id: string, completed: boolean) {
     setTodos((currentTodos) => {
       return currentTodos.map((todo) => {
         if (todo.id === id) {
@@ -35,7 +41,7 @@ export default function App() {
     });
   }
 
-  function deleteTodo(id) {
+  function deleteTodo(id: string) {
     setTodos((currentTodos) => {
       return currentTodos.filter((todo) => todo.id !== id);
     });
