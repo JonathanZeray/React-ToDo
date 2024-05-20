@@ -28,6 +28,12 @@ export default function App() {
     });
   }
 
+  function deleteTodo(id) {
+    setTodos((currentTodos) => {
+      return currentTodos.filter((todo) => todo.id !== id);
+    });
+  }
+
   return (
     <>
       <form onSubmit={handleSubmit}>
@@ -56,7 +62,10 @@ export default function App() {
                 />
                 {todo.title}
               </label>
-              <button className="border border-gray-300 p-2 rounded-md">
+              <button
+                className="border border-gray-300 p-2 rounded-md"
+                onClick={() => deleteTodo(todo.id)}
+              >
                 delete
               </button>
             </li>
