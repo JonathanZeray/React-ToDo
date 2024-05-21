@@ -1,10 +1,18 @@
+interface TodoItem {
+  completed: boolean;
+  id: string;
+  title: string;
+  toggleTodo: (id: string, completed: boolean) => void;
+  deleteTodo: (id: string) => void;
+}
+
 export default function TodoItem({
   completed,
   id,
   title,
   toggleTodo,
   deleteTodo,
-}) {
+}: TodoItem) {
   return (
     <li key={id}>
       <label>
