@@ -11,18 +11,7 @@ interface Todo {
 }
 
 export default function App(): JSX.Element {
-  const [todos, setTodos] = useState<Todo[]>(() => {
-    const localValue = localStorage.getItem("ITEMS");
-    if (localValue === null) return [];
-
-    return JSON.parse(localValue);
-  });
-
-  /*
-  useEffect(() => {
-    localStorage.setItem("ITEMS", JSON.stringify(todos));
-  }, [todos]);
-  */
+  const [todos, setTodos] = useState<Todo[]>([]);
 
   useEffect(() => {
     axios.get("http://localhost:5000/todos").then((response) => {

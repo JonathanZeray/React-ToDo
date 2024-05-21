@@ -14,7 +14,7 @@ export default function TodoItem({
   deleteTodo,
 }: TodoItemProps): JSX.Element {
   return (
-    <li key={id}>
+    <li>
       <label>
         <input
           type="checkbox"

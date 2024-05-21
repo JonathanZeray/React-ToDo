@@ -1,9 +1,9 @@
 import TodoItem from "./TodoItem";
 
 interface Todo {
-  completed: boolean;
-  id: string;
+  _id: string;
   title: string;
+  completed: boolean;
 }
 
 interface TodoListProps {
@@ -22,8 +22,10 @@ export default function TodoList({
       {todos.length === 0 && "Nothing to do.."}
       {todos.map((todo) => (
         <TodoItem
-          {...todo}
-          key={todo.id}
+          key={todo._id} // Ensure a unique key
+          id={todo._id}
+          title={todo.title}
+          completed={todo.completed}
           toggleTodo={toggleTodo}
           deleteTodo={deleteTodo}
         />
