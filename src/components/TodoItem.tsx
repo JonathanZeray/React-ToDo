@@ -1,4 +1,4 @@
-interface TodoItem {
+interface TodoItemProps {
   completed: boolean;
   id: string;
   title: string;
@@ -12,7 +12,7 @@ export default function TodoItem({
   title,
   toggleTodo,
   deleteTodo,
-}: TodoItem) {
+}: TodoItemProps): JSX.Element {
   return (
     <li key={id}>
       <label>
