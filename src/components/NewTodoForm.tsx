@@ -1,9 +1,13 @@
 import { useState } from "react";
 
-export default function NewTodoForm({ addToDo }) {
-  const [newItem, setNewItem] = useState("");
+interface NewTodoFormProps {
+  addToDo: (title: string) => void;
+}
 
-  function handleSubmit(e) {
+export default function NewTodoForm({ addToDo }: NewTodoFormProps) {
+  const [newItem, setNewItem] = useState<string>("");
+
+  function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     if (newItem === "") return;
 
