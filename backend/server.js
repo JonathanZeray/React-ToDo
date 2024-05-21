@@ -47,16 +47,24 @@ app.post("/todos", async (req, res) => {
   res.json(saveTodo);
 });
 
-app.put("/todos/:id", async (req, res) => {
-  const updatedTodo = await Todo.findByIdAndUpdate(req.params.id, req.body, {
-    new: true,
-  });
-  res.json(updatedTodo);
+app.patch("/todos/:id", async (req, res) => {
+  try {
+    const updatedTodo = await Todo.findByIdAndUpdate(req.params.id, req.body, {
+      new: true,
+    });
+    res.json(updatedTodo);
+  } catch (error) {
+    res.status(500).send(error);
+  }
 });
 
 app.delete("/todos/:id", async (req, res) => {
-  const deletedTodo = await Todo.findByIdAndRemove(req.params.id);
-  res.json(deletedTodo);
+  try {
+    const deletedTodo = await Todo.findByIdAndDelete(req.params.id);
+    res.json(deletedTodo);
+  } catch (error) {
+    res.status(500).send(error);
+  }
 });
 
 app.listen(port, () => {
