@@ -1,10 +1,11 @@
+import axios from "axios";
 import { useEffect, useState } from "react";
 import "./styles.css";
 import NewTodoForm from "./components/NewTodoForm";
 import TodoList from "./components/TodoList";
 
 interface Todo {
-  id: string;
+  _id: string;
   title: string;
   completed: boolean;
 }
@@ -17,35 +18,39 @@ export default function App(): JSX.Element {
     return JSON.parse(localValue);
   });
 
+  /*
   useEffect(() => {
     localStorage.setItem("ITEMS", JSON.stringify(todos));
   }, [todos]);
+  */
 
-  function addToDo(title: string) {
-    setTodos((currentTodos) => {
-      return [
-        ...currentTodos,
-        { id: crypto.randomUUID(), title, completed: false },
-      ];
+  useEffect(() => {
+    axios.get("http://localhost:5000/todos").then((response) => {
+      setTodos(response.data);
     });
-  }
+  }, []);
 
-  function toggleTodo(id: string, completed: boolean) {
-    setTodos((currentTodos) => {
-      return currentTodos.map((todo) => {
-        if (todo.id === id) {
-          return { ...todo, completed };
-        }
-        return todo;
+  const addToDo = (title: string) => {
+    axios
+      .post("http://localhost:5000/todos", { title, completed: false })
+      .then((response) => {
+        setTodos([...todos, response.data]);
       });
-    });
-  }
+  };
 
-  function deleteTodo(id: string) {
-    setTodos((currentTodos) => {
-      return currentTodos.filter((todo) => todo.id !== id);
+  const toggleTodo = (id: string, completed: boolean) => {
+    axios
+      .patch(`http://localhost:5000/todos/${id}`, { completed })
+      .then((response) => {
+        setTodos(todos.map((todo) => (todo._id === id ? response.data : todo)));
+      });
+  };
+
+  const deleteTodo = (id: string) => {
+    axios.delete(`http://localhost:5000/todos/${id}`).then(() => {
+      setTodos(todos.filter((todo) => todo._id !== id));
     });
-  }
+  };
 
   return (
     <div className="bg-slate-200 h-screen flex flex-col items-center py-6">
