@@ -48,10 +48,10 @@ export default function App(): JSX.Element {
   }
 
   return (
-    <>
+    <div className="bg-slate-200 h-screen flex flex-col items-center py-6">
       <NewTodoForm addToDo={addToDo} />
-      <h1>Todo list</h1>
+      <h1 className="font-extrabold text-3xl mb-6">Things to do..</h1>
       <TodoList todos={todos} toggleTodo={toggleTodo} deleteTodo={deleteTodo} />
-    </>
+    </div>
   );
 }

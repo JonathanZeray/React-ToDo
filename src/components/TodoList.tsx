@@ -18,7 +18,7 @@ export default function TodoList({
   deleteTodo,
 }: TodoListProps): JSX.Element {
   return (
-    <ul>
+    <ul className="flex flex-col ml-4 gap-2">
       {todos.length === 0 && "Nothing to do.."}
       {todos.map((todo) => (
         <TodoItem

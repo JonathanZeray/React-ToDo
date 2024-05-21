@@ -20,11 +20,12 @@ export default function TodoItem({
           type="checkbox"
           checked={completed}
           onChange={(e) => toggleTodo(id, e.target.checked)}
+          className="mr-2"
         />
         {title}
       </label>
       <button
-        className="border border-gray-300 p-2 rounded-md"
+        className="border border-gray-300 p-2 rounded-md ml-2 hover:bg-red-300"
         onClick={() => deleteTodo(id)}
       >
         delete

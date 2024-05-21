@@ -17,18 +17,23 @@ export default function NewTodoForm({ addToDo }: NewTodoFormProps) {
   }
 
   return (
-    <form onSubmit={handleSubmit}>
-      <div className="flex flex-col">
-        <label htmlFor="item">New item</label>
+    <form onSubmit={handleSubmit} className="flex flex-col items-center mb-8">
+      <div className="flex flex-col items-center">
+        <label htmlFor="item" className="font-bold text-md">
+          Add new item
+        </label>
         <input
           type="text"
+          autoComplete="off"
           id="item"
           value={newItem}
           onChange={(e) => setNewItem(e.target.value)}
-          className="border border-gray-300 p-2 w-1/3"
+          className="border border-gray-300 p-2 w-full"
         />
       </div>
-      <button className="border border-gray-300 p-2 rounded-md">Add</button>
+      <button className="border border-gray-300 py-2 px-4 mt-4 rounded-md font-semibold hover:bg-green-300">
+        Add
+      </button>
     </form>
   );
 }
